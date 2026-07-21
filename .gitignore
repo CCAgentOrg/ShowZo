@@ -1,0 +1,8 @@
+node_modules/
+dist/
+output/
+*.mp4
+*.webm
+*.wav
+!docs/*.md
+config-*.json
