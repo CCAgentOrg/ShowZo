@@ -1,0 +1,15 @@
+{
+  "name": "showzo",
+  "local_port": 58944,
+  "entrypoint": "bun run dev",
+  "publish": {
+    "label": "showzo",
+    "type": "http",
+    "entrypoint": "bun run prod",
+    "published_port": 58819,
+    "env": {
+      "NODE_ENV": "production",
+      "ZO_CLIENT_IDENTITY_TOKEN": "none"
+    }
+  }
+}
