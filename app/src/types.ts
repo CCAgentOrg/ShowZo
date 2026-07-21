@@ -44,3 +44,28 @@ export interface SessionView {
   createdAt: number;
   error?: string;
 }
+
+// ── Recording progress types (issue #10) ──────────────────────────────────
+
+export type StepRecordStatus = "pending" | "running" | "done" | "error";
+
+export interface StepRecordState {
+  id: string;
+  order: number;
+  action: string;
+  narration?: string;
+  status: StepRecordStatus;
+  duration?: number;
+  error?: string;
+}
+
+export interface RecordingState {
+  sessionId: string;
+  status: "recording" | "assembling" | "complete" | "failed";
+  currentStep: number;
+  totalSteps: number;
+  steps: StepRecordState[];
+  elapsedMs: number;
+  error?: string;
+  log?: string[];
+}
