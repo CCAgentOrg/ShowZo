@@ -5,12 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
-    // React Compiler auto-memoizes components: skip hand-written useMemo/useCallback.
-    react({
-      babel: {
-        plugins: [["babel-plugin-react-compiler", {}]],
-      },
-    }),
+    react(),
     tailwindcss(),
   ],
   resolve: {
