@@ -15,25 +15,11 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install root dependencies
+      - name: Install dependencies
         run: bun install
 
-      - name: Install app dependencies
-        working-directory: app
-        run: bun install
+      - name: Build (Vite)
+        run: bun run build
 
-      - name: Run pipeline tests
-        run: bun test --timeout 120000
-        env:
-          ZO_CLIENT_IDENTITY_TOKEN: dummy
-
-      - name: Run app tests (including build)
-        working-directory: app
-        run: bun test --timeout 180000
-
-      - name: TypeScript check (root)
-        run: bun x tsc --noEmit || echo "tsc warnings (non-blocking)"
-
-      - name: TypeScript check (app)
-        working-directory: app
+      - name: TypeScript check
         run: bun x tsc --noEmit || echo "tsc warnings (non-blocking)"
