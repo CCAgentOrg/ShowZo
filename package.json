@@ -1,6 +1,6 @@
 {
   "name": "showzo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Agentic walkthrough video generator",
   "type": "module",
@@ -8,8 +8,15 @@
     "plan": "bun run pipeline/plan.ts",
     "walkthrough": "bun run pipeline/walkthrough.ts",
     "assemble": "bun run pipeline/assemble.ts",
-    "dev": "echo 'UI coming soon'",
+    "dev:api": "bun run --hot api/index.ts",
+    "dev:ui": "cd app && bun x vite --port 3000",
+    "dev": "bun run dev:api & bun run dev:ui & wait",
+    "build": "cd app && bun x vite build",
+    "test": "bun test",
     "lint": "bun x tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4"
   },
   "devDependencies": {
     "@types/bun": "latest",

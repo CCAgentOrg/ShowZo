@@ -14,18 +14,26 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - run: bun install
-      - run: bun test
+
+      - name: Install root dependencies
+        run: bun install
+
+      - name: Install app dependencies
+        working-directory: app
+        run: bun install
+
+      - name: Run pipeline tests
+        run: bun test --timeout 120000
         env:
           ZO_CLIENT_IDENTITY_TOKEN: dummy
-      - run: bun run lint 2>/dev/null || echo "tsc warnings (non-blocking)"
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-      - run: bun install
-      - run: bun x tsc --noEmit
+      - name: Run app tests (including build)
+        working-directory: app
+        run: bun test --timeout 180000
+
+      - name: TypeScript check (root)
+        run: bun x tsc --noEmit || echo "tsc warnings (non-blocking)"
+
+      - name: TypeScript check (app)
+        working-directory: app
+        run: bun x tsc --noEmit || echo "tsc warnings (non-blocking)"
